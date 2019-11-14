@@ -1,3 +1,7 @@
+.home {
+  background-color: #fff;
+}
+
 .App {
   text-align: center;
 }
@@ -19,4 +23,12 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.container {
+  .container__content {
+    p {
+      color: red;
+    }
+  }
 }
