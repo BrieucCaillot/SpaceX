@@ -11,56 +11,106 @@ import OrbitControls from "orbit-controls-es6";
 import Grid from '../classes/Grid'
 import BillBoard from '../classes/BillBoard'
 
+import Rockets from '../views/Rockets';
+
 class Home extends Component {
 
   constructor(props) {
     super(props)
-
-    this.camera = null
-    this.scene = null
     this.renderer = null
+    this.scene = null
+    this.camera = null
+
     this.controls = null
-    this.uniforms = null
     this.textureLoader = null
 
-    this.grid = null
     this.billBoard = null
+    this.grid = null
 
     this.oldDate = 0
     this.newDate = 0;
     this.delta = 0
 
-
     this.composer = null
     this.bloomPass = null
-    this.bind()
   }
 
   componentDidMount() {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true })
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
-    this.renderer.debug.checkShaderErrors = true
-    this.mount.appendChild(this.renderer.domElement);
 
-    this.scene = new THREE.Scene()
-    this.scene.fog = new THREE.Fog(0xFFFFFF, 8, 10)
-    this.scene.background = new THREE.Color(0xFFFFFF)
-
-    this.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000)
-    this.camera.position.set(0, 0.5, 4)
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement)
-    this.controls.enabled = true
-    this.controls.maxDistance = 1500
-    this.controls.minDistance = 0
-
-
-    this.composer = new EffectComposer(this.renderer);
-    this.composer.addPass(new RenderPass(this.scene, this.camera));
-    this.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 3, 1, 0.9);
-    this.composer.addPass(this.bloomPass);
+    this.initRenderer()
+    this.initScene()
+    this.initCamera()
+    this.initControls()
+    this.initPostProcessing()
+    this.initLights()
+    this.initGUI()
+    this.handleListeners()
 
     this.textureLoader = new THREE.TextureLoader()
 
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = "http://via.placeholder.com/900"
+
+    this.grid = new Grid(this.scene, this.textureLoader)
+    this.billBoard = new BillBoard(this.scene, this.textureLoader, img)
+
+    let animate = () => {
+      requestAnimationFrame(animate);
+      this.update();
+    };
+
+    animate();
+  }
+
+  initRenderer() {
+    const renderer = new THREE.WebGLRenderer({ antialias: true })
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.debug.checkShaderErrors = true
+    this.mount.appendChild(renderer.domElement);
+    this.renderer = renderer
+  }
+
+  initScene() {
+    const scene = new THREE.Scene()
+    scene.fog = new THREE.Fog(0xFFFFFF, 8, 10)
+    scene.background = new THREE.Color(0xFFFFFF)
+    this.scene = scene
+  }
+
+  initCamera() {
+    const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.set(0, 0.5, 4)
+    this.camera = camera
+  }
+
+  initControls() {
+    const controls = new OrbitControls(this.camera, this.renderer.domElement)
+    controls.enabled = true
+    controls.maxDistance = 1500
+    controls.minDistance = 0
+    this.controls = controls
+  }
+
+  initPostProcessing() {
+    const composer = new EffectComposer(this.renderer);
+    composer.addPass(new RenderPass(this.scene, this.camera));
+    this.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight),
+      3,
+      1,
+      0.9);
+    composer.addPass(this.bloomPass);
+    this.composer = composer
+  }
+
+  initLights() {
+    const light = new THREE.AmbientLight()
+    const pointLight = new THREE.PointLight()
+    pointLight.position.set(10, 10, 0)
+    this.scene.add(light, pointLight)
+  }
+
+  initGUI() {
     var params = {
       exposure: 1,
       bloomStrength: 1.5,
@@ -81,25 +131,10 @@ class Home extends Component {
     gui.add(params, "bloomRadius", 0.0, 1.0).step(0.01).onChange(value => {
       this.bloomPass.radius = Number(value);
     });
+  }
 
-    let light = new THREE.AmbientLight()
-    let pointLight = new THREE.PointLight()
-    pointLight.position.set(10, 10, 0)
-    this.scene.add(light, pointLight)
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = "http://via.placeholder.com/900"
-
-    this.grid = new Grid(this.scene, this.textureLoader)
-    this.billBoard = new BillBoard(this.scene, this.textureLoader, img)
-
-    let animate = () => {
-      requestAnimationFrame(animate);
-      this.update();
-    };
-
-    animate();
+  handleListeners() {
+    window.addEventListener("resize", () => this.resizeCanvas())
   }
 
   update() {
@@ -122,12 +157,13 @@ class Home extends Component {
     this.camera.updateProjectionMatrix()
   }
 
-  bind() {
-    window.addEventListener("resize", () => this.resizeCanvas())
-  }
-
   render() {
-    return <div ref={ref => (this.mount = ref)} />;
+    return (
+      <>
+        <div ref={ref => (this.mount = ref)} />
+        <Rockets />
+      </>
+    )
   }
 }
 

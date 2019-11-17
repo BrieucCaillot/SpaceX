@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
   GET_ALL_MISSIONS,
   GET_ALL_LAUNCHES,
-  GET_ALL_ROCKETS,
+  GET_ALL_ROCKETS
 } from './types';
 
 export const getAllMissions = () => (dispatch) => {
