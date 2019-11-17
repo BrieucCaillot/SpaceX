@@ -6,6 +6,7 @@
     "axios": "^0.19.0",
     "glslify-loader": "^2.0.0",
     "node-sass": "^4.13.0",
+    "orbit-controls-es6": "^2.0.1",
     "raw-loader": "^3.1.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

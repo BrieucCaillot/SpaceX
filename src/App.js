@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import Home from './views/Home';
 import Rockets from './views/Rockets';
 import { Provider } from 'react-redux'
 import { getAllLaunches, getAllRockets } from './store/actions';
@@ -13,7 +14,8 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Rockets />
+      <Home />
+      {/*<Rockets />*/}
     </Provider>
   );
 }
