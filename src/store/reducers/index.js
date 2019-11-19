@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
-import MissionsReducer from './MissionsReducer';
-import LaunchesReducer from './LaunchesReducer';
-import RocketsReducer from './RocketsReducer';
+import SpaceXReducer from './SpaceXReducer';
 
 export default combineReducers({
-  MissionsReducer,
-  LaunchesReducer,
-  RocketsReducer
+  SpaceXReducer
 });
