@@ -14,7 +14,7 @@ import Rockets from '../views/Rockets';
 import arrow from '../assets/arrow.svg'
 import arrowLeft from '../assets/arrowLeft.svg'
 import arrowRight from '../assets/arrowRight.svg'
-// import SpaceX-Logo- from '../assets/SpaceX-Logo-.svg'
+import SpaceXLogo from '../assets/spaceXLogo.png'
 
 class Home extends Component {
 
@@ -49,7 +49,6 @@ class Home extends Component {
     this.initRenderer()
     this.initScene()
     this.initCamera()
-    // this.initControls()
     this.initLights()
     this.handleListeners()
 
@@ -62,8 +61,8 @@ class Home extends Component {
     this.grid = new Grid(this.scene, this.textureLoader)
 
     let stepSize = 4;
-    for (let i = 0; i < 4; i++) {
-      this.rocketSections.push(new RocketSection(this.rocketSectionsGroup, this.textureLoader, "starship", 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'))
+    for (let i = 0; i < 3; i++) {
+      this.rocketSections.push(new RocketSection(this.rocketSectionsGroup, this.textureLoader, "starship", 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260', "Hallo ?", "Ouais ouais trql"))
       this.rocketSections[i].rocketSection.position.x = stepSize * i;
     }
     this.scene.add(this.rocketSectionsGroup)
@@ -228,6 +227,7 @@ class Home extends Component {
     return (
       <>
         <div ref={ref => (this.mount = ref)} />
+        <img src={SpaceXLogo} className="logo"></img>
         <div className="back on">
           <img onClick={() => this.backClicked()} src={arrow}></img>
         </div>
