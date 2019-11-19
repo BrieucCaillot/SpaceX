@@ -19,6 +19,7 @@ const Rockets = ({ allRockets, allLaunches }) => {
 
   }, [allLaunches])
 
+
   // group rockets with launches
   const [rockets, setRockets] = useState([]);
   useEffect(() => {
