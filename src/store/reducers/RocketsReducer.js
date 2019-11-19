@@ -3,7 +3,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  allRockets: [],
+  allRockets: []
 };
 
 const RocketsReducer = (state = initialState, action) => {

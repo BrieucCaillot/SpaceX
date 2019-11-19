@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 const Rocket = (rocket) => {
 
   useEffect(() => {
-    console.log('Rocket compo cDM')
+    console.log('ROCKET', rocket)
   }, [])
 
   return (
