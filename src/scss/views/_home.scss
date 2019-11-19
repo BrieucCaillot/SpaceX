@@ -1,34 +1,66 @@
-.home {
-  background-color: #fff;
+body {
+  width: 100vw;
+  height: 100vh overflow hidden
 }
 
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
+canvas.tex {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 30px;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+
+  img {
+    width: 50px;
+    height: auto;
+  }
+
 }
 
-.App-link {
-  color: #09d3ac;
+.back.on {
+  transform: translate3d(-100%, 0, 0)
 }
 
-.container {
-  .container__content {
-    p {
-      color: red;
-    }
+.arrows {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 30px;
+
+  img {
+    width: 20px;
+    height: auto;
+    transition: all .3s;
+    transform: translate3d(0, 0, 0)
+  }
+
+  img.previous.on {
+    transform: translate3d(-300%, 0, 0)
+  }
+
+  img.next.on {
+    transform: translate3d(300%, 0, 0)
   }
 }
