@@ -50,7 +50,7 @@ const SpaceXReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        allRocketsWithLaunches: [allRockets]
+        allRocketsWithLaunches: allRockets
       }
 
     default:

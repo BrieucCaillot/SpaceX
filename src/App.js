@@ -1,9 +1,11 @@
-import React, { useEffect} from "react";
-import Home from './views/Home';
+import React, { useEffect } from "react";
 import { Provider } from 'react-redux'
 import { getAllLaunches, getAllRockets } from './store/actions';
 import store from './store';
 import { GET_ALL_ROCKETS_WITH_LAUNCHES } from './store/actions/types';
+import ThreeInit from './views/ThreeInit';
+import Rockets from './views/Rockets';
+import Grid from './components/three/Grid';
 
 const App = () => {
 
@@ -17,7 +19,9 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Home />
+      <ThreeInit />
+      <Grid />
+      <Rockets />
     </Provider>
   );
 }

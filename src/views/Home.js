@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import * as THREE from "three";
 import '../scss/views/_home.scss'
 
@@ -10,6 +11,8 @@ import Grid from '../classes/Grid'
 import RocketSection from '../classes/RocketSection'
 import AnimationController from '../classes/AnimationController'
 
+import { setRenderer, setCamera, setScene } from '../store/actions';
+
 import Rockets from '../views/Rockets';
 import arrow from '../assets/arrow.svg'
 import arrowLeft from '../assets/arrowLeft.svg'
@@ -20,6 +23,7 @@ class Home extends Component {
 
   constructor(props) {
     super(props)
+
     this.renderer = null
     this.scene = null
     this.camera = null
@@ -46,17 +50,13 @@ class Home extends Component {
 
   componentDidMount() {
 
-    this.initRenderer()
-    this.initScene()
-    this.initCamera()
-    this.initLights()
+    // this.initRenderer()
+    // this.initScene()
+    // this.initCamera()
+    // this.initLights()
     this.handleListeners()
 
     this.textureLoader = new THREE.TextureLoader()
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = "http://via.placeholder.com/900"
 
     this.grid = new Grid(this.scene, this.textureLoader)
 
@@ -82,6 +82,8 @@ class Home extends Component {
     renderer.debug.checkShaderErrors = true
     this.mount.appendChild(renderer.domElement);
     this.renderer = renderer
+    this.props.setRenderer(renderer)
+    console.log(this.props)
   }
 
   initScene() {
@@ -89,16 +91,18 @@ class Home extends Component {
     scene.fog = new THREE.Fog(0xFFFFFF, 8, 10)
     scene.background = new THREE.Color(0xFFFFFF)
     this.scene = scene
+    this.props.setScene(scene)
   }
 
   initCamera() {
     const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000)
     camera.position.set(0, 0, 4)
     this.camera = camera
+    this.props.setCamera(camera)
   }
 
   initControls() {
-    const controls = new OrbitControls(this.camera, this.renderer.domElement)
+    const controls = new OrbitControls(this.camera, this.props.renderer.domElement)
     controls.enabled = true
     controls.maxDistance = 1500
     controls.minDistance = 0
@@ -167,7 +171,7 @@ class Home extends Component {
   }
 
   update() {
-    this.renderer.render(this.scene, this.camera)
+    this.props.renderer.render(this.scene, this.camera)
     this.camera.lookAt(0, 0, 0)
     this.camera.position.x += (this.mousePos.x / 5 - this.camera.position.x) * 0.05
     this.camera.position.y += (-this.mousePos.y / 5 - this.camera.position.y) * 0.05
@@ -218,7 +222,7 @@ class Home extends Component {
   }
 
   resizeCanvas = () => {
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    this.props.renderer.setSize(window.innerWidth, window.innerHeight)
     this.camera.aspect = window.innerWidth / window.innerHeight
     this.camera.updateProjectionMatrix()
   }
@@ -241,4 +245,18 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching plain actions
+    setRenderer: (renderer) => dispatch(setRenderer(renderer)),
+    setScene: (scene) => dispatch(setScene(scene)),
+    setCamera: (camera) => dispatch(setCamera(camera)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  const { renderer, scene, camera } = state.ThreeReducer;
+  return { renderer, scene, camera };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

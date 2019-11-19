@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import Rocket from '../components/Rocket';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-const Rockets = ({allRocketsWithLaunches}) => {
+import Rocket from '../components/rocket/Rocket';
+
+const Rockets = () => {
+
+  const SpaceXState = useSelector(state => state.SpaceXReducer)
+  const { allRocketsWithLaunches } = SpaceXState;
 
   return (
     <>
       {
         allRocketsWithLaunches.map((rocket, index) => (
-          <Rocket key={index} {...rocket} />
+          <Rocket key={index} rocket={rocket} index={index} />
         ))
       }
     </>
   )
 }
 
-const mapStateToProps = (state) => {
-  const { allRocketsWithLaunches } = state.SpaceXReducer;
-  return { allRocketsWithLaunches };
-};
-
-
-export default connect(mapStateToProps)(Rockets);
+export default Rockets;

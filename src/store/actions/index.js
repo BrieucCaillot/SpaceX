@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
   GET_ALL_MISSIONS,
   GET_ALL_LAUNCHES,
-  GET_ALL_ROCKETS
+  GET_ALL_ROCKETS, SET_RENDERER, SET_SCENE, SET_CAMERA
 } from './types';
 
 export const getAllMissions = () => (dispatch) => {
@@ -47,3 +47,24 @@ export const getAllRockets = () => (dispatch) => new Promise((resolve) => {
     console.log(err);
   })
 });
+
+export const setRenderer = (renderer) => (dispatch) => {
+  dispatch({
+    type: SET_RENDERER,
+    value: renderer
+  })
+}
+
+export const setScene = (scene) => (dispatch) => {
+  dispatch({
+    type: SET_SCENE,
+    value: scene
+  })
+}
+
+export const setCamera = (camera) => (dispatch) => {
+  dispatch({
+    type: SET_CAMERA,
+    value: camera
+  })
+}

@@ -1,9 +1,9 @@
 import * as THREE from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 import BillBoard from './BillBoard'
-import Rockets from './Rockets'
+import Rocket from './Rocket'
 
 export default class RocketSection {
     constructor(scene, textureLoader, rocketId, imgUrl, topText, botText) {
@@ -15,7 +15,7 @@ export default class RocketSection {
         this.imgUrl = imgUrl
         this.gltfLoader = new GLTFLoader()
 
-        this.rockets = new Rockets(this.rocketSection, this.gltfLoader, this.rocketId)
+        this.rockets = new Rocket(this.rocketSection, this.gltfLoader, this.rocketId)
         this.billBoard = new BillBoard(this.rocketSection, textureLoader, this.imgUrl, topText, botText)
         this.scene.add(this.rocketSection)
     }

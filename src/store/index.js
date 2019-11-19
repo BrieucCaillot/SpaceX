@@ -10,4 +10,8 @@ const store = createStore(
   enhancer
 );
 
+// setInterval(() => {
+//   console.log(store.getState().ThreeReducer)
+// }, 2000)
+
 export default store;
