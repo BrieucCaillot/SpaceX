@@ -1,8 +1,5 @@
 import * as THREE from 'three';
 
-// import vertSource from '../shaders/plane.vert';
-// import fragSource from '../shaders/plane.frag';
-
 import PlaneVertex from '../shaders/PlaneVertex';
 import PlaneFragment from '../shaders/PlaneFragment';
 
@@ -22,7 +19,6 @@ export default class Billboard {
         this.uniforms = null
         this.loadGrid()
     }
-
 
     loadGrid() {
         this.fbxLoader.load(gridFbx, (obj) => {

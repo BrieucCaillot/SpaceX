@@ -8,42 +8,42 @@ import {
 
 export const getAllMissions = () => (dispatch) => {
 
-  axios.get('https://api.spacexdata.com/v3/missions')
-  .then(res => {
-    dispatch({
-      type: GET_ALL_MISSIONS,
-      value: res.data
-    });
-  }).catch(err => {
-    console.log(err);
+  new Promise((resolve) => {
+    axios.get('https://api.spacexdata.com/v3/missions')
+    .then(res => {
+      dispatch({
+        type: GET_ALL_MISSIONS,
+        value: res.data
+      });
+    }).catch(err => {
+      console.log(err);
+    })
   })
 
 };
 
-export const getAllLaunches = () => (dispatch) => {
-
+export const getAllLaunches = () => (dispatch) => new Promise((resolve) => {
   axios.get('https://api.spacexdata.com/v3/launches')
   .then(res => {
     dispatch({
       type: GET_ALL_LAUNCHES,
       value: res.data
     });
+    resolve()
   }).catch(err => {
     console.log(err);
   })
+});
 
-};
-
-export const getAllRockets = () => (dispatch) => {
-
+export const getAllRockets = () => (dispatch) => new Promise((resolve) => {
   axios.get('https://api.spacexdata.com/v3/rockets')
   .then(res => {
     dispatch({
       type: GET_ALL_ROCKETS,
       value: res.data
     });
+    resolve()
   }).catch(err => {
     console.log(err);
   })
-
-};
+});

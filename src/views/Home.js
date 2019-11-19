@@ -48,12 +48,12 @@ class Home extends Component {
 
     this.textureLoader = new THREE.TextureLoader()
 
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = "http://via.placeholder.com/900"
+    // const img = new Image();
+    // img.crossOrigin = "anonymous";
+    // img.src = "http://via.placeholder.com/900"
 
     this.grid = new Grid(this.scene, this.textureLoader)
-    this.billBoard = new BillBoard(this.scene, this.textureLoader, img)
+    this.billBoard = new BillBoard(this.scene, this.textureLoader, '../assets/rocketImageTest.jpg')
 
     let animate = () => {
       requestAnimationFrame(animate);
