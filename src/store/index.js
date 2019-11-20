@@ -11,7 +11,7 @@ const store = createStore(
 );
 
 // setInterval(() => {
-//   console.log(store.getState().ThreeReducer)
+//   console.log(store.getState().ThreeReducer.rocketSections)
 // }, 2000)
 
 export default store;

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import * as THREE from 'three';
 
@@ -10,22 +10,21 @@ import { TweenLite } from "gsap";
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import createCanTex from '../../classes/createCanTex';
 
-const RocketBillboard = ({ rocket_id, flickr_images }) => {
+const RocketBillboard = ({ rocket, rocketSection }) => {
 
   const ThreeState = useSelector(state => state.ThreeReducer)
   const { scene } = ThreeState;
 
-  let planeCenter = {};
-  let uniforms = {};
+  let planeCenter = useRef({});
+  let uniforms = useRef({});
   let time = 0.8;
 
   useEffect(() => {
     if (scene) {
       loadPlaneCenter()
-      createTopPlane(rocket_id)
-      createBotPlane(rocket_id)
+      createTopPlane(rocket.rocket_id)
+      createBotPlane(rocket.rocket_id)
     }
-
   }, [scene])
 
   const loadPlaneCenter = () => {
@@ -35,9 +34,11 @@ const RocketBillboard = ({ rocket_id, flickr_images }) => {
   }
 
   const createBillboard = (obj) => {
-    planeCenter = obj
-    const texture = new THREE.TextureLoader().load(flickr_images[0])
-    uniforms = {
+    planeCenter.current = obj
+    // const texture = new THREE.TextureLoader().load(rocket.flickr_images[0])
+    const texture = new THREE.TextureLoader().load(
+      'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')
+    uniforms.current = {
       u_tex: {
         type: 't',
         value: texture
@@ -56,18 +57,20 @@ const RocketBillboard = ({ rocket_id, flickr_images }) => {
       },
     }
     const s = 0.5
-    planeCenter.scale.set(s, s, s)
-    planeCenter.translateY(0.3)
-    planeCenter.rotateX(Math.PI / 2)
-    planeCenter.rotateZ(Math.PI)
-    planeCenter.material = new THREE.ShaderMaterial({
-      uniforms: uniforms,
+    planeCenter.current.scale.set(s, s, s)
+    planeCenter.current.translateY(0.3)
+    planeCenter.current.rotateX(Math.PI / 2)
+    planeCenter.current.rotateZ(Math.PI)
+    planeCenter.current.material = new THREE.ShaderMaterial({
+      uniforms: uniforms.current,
       vertexShader: PlaneVertex,
       fragmentShader: PlaneFragment,
       transparent: true
     })
+    planeCenter.current.name = 'placeCenter'
+
     // console.log('planeCenter', planeCenter)
-    scene.add(planeCenter)
+    rocketSection.add(planeCenter)
   }
 
   const createTopPlane = (topText) => {
@@ -78,19 +81,21 @@ const RocketBillboard = ({ rocket_id, flickr_images }) => {
     }))
     tex.needsUpdate = true
     planeTop.position.set(0.55, 0.5, 0)
-    scene.add(planeTop)
+    planeTop.name = 'planeTop'
+    rocketSection.add(planeTop)
   }
 
   const createBotPlane = (botText) => {
     let tex = new THREE.CanvasTexture(createCanTex(botText, true))
-    let planeTop = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), new THREE.MeshBasicMaterial({
+    let planeBot = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), new THREE.MeshBasicMaterial({
       map: tex,
       transparent: true,
       side: THREE.DoubleSide
     }))
     tex.needsUpdate = true
-    planeTop.position.set(0.55, -0.55, 0)
-    scene.add(planeTop)
+    planeBot.position.set(0.55, -0.55, 0)
+    planeBot.name = 'planeBot'
+    rocketSection.add(planeBot)
   }
 
   const mouseIn = () => {
@@ -125,9 +130,14 @@ const RocketBillboard = ({ rocket_id, flickr_images }) => {
     })
   }
 
-  const update = (delta) => {
-    if (planeCenter)
-      uniforms.u_delta.value += 1
+  const update = () => {
+  }
+
+  rocketSection.update = () => {
+    console.log(uniforms.current, planeCenter.current)
+    if (uniforms.current.u_delta) {
+      uniforms.current.u_delta.value += 1
+    }
   }
 
 

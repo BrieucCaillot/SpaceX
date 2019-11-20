@@ -49,7 +49,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-
     // this.initRenderer()
     // this.initScene()
     // this.initCamera()
@@ -108,7 +107,6 @@ class Home extends Component {
     controls.minDistance = 0
     this.controls = controls
   }
-
 
   initLights() {
     const light = new THREE.AmbientLight()

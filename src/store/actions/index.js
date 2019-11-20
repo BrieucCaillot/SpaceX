@@ -3,7 +3,11 @@ import axios from 'axios';
 import {
   GET_ALL_MISSIONS,
   GET_ALL_LAUNCHES,
-  GET_ALL_ROCKETS, SET_RENDERER, SET_SCENE, SET_CAMERA
+  GET_ALL_ROCKETS,
+  SET_RENDERER,
+  SET_SCENE,
+  SET_CAMERA,
+  SET_ROCKETS_SECTIONS
 } from './types';
 
 export const getAllMissions = () => (dispatch) => {
@@ -66,5 +70,12 @@ export const setCamera = (camera) => (dispatch) => {
   dispatch({
     type: SET_CAMERA,
     value: camera
+  })
+}
+
+export const setRocketSections= (rocketSection) => (dispatch) => {
+  dispatch({
+    type: SET_ROCKETS_SECTIONS,
+    value: rocketSection
   })
 }
