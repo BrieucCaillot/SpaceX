@@ -1,11 +1,13 @@
 import { TweenLite } from "gsap";
 
 export default class AnimationController {
-    constructor(sections, stepSize) {
+    constructor(sections, stepSize, camera) {
         this.bind()
         this.stepSize = stepSize
         this.sections = sections
+        this.camera = camera
         this.prezFlag = false
+        this.enterFlag = false
         this.positionIndex = 0;
     }
 
@@ -68,12 +70,20 @@ export default class AnimationController {
         })
     }
 
+    enterMuseum() {
+        this.prezFlag = true
+        TweenLite.to(this.camera.position, 2, {
+            z: 4,
+        })
+    }
+
 
 
     bind() {
         this.moveToLeft = this.moveToLeft.bind(this)
         this.moveForward = this.moveForward.bind(this)
         this.prezMode = this.prezMode.bind(this)
+        this.enterMuseum = this.enterMuseum.bind(this)
         this.back = this.back.bind(this)
     }
 

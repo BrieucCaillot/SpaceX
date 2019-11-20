@@ -22,6 +22,8 @@ export default class Billboard {
         this.uniforms = null
         this.time = 0.8;
 
+        this.uvInt = new THREE.Vector2()
+
         this.loadPlaneCenter()
         this.createTopPlane(topText)
         this.createBotPlane(botText)
@@ -31,6 +33,11 @@ export default class Billboard {
         this.fbxLoader.load(grid, (obj) => {
             this.createBillboard(obj.children[0])
         })
+    }
+
+    updateUv(uvInt) {
+        this.uvInt = uvInt
+        this.uniforms.u_intUv.value = uvInt
     }
 
     createBillboard(obj) {
@@ -55,6 +62,10 @@ export default class Billboard {
                 type: 'f',
                 value: -1.
             },
+            u_intUv: {
+                type: 'vec2',
+                value: this.uvInt
+            },
         }
         let s = 0.5
         this.planeCenter.scale.set(s, s, s)
@@ -68,6 +79,7 @@ export default class Billboard {
             transparent: true
         })
         console.log(this.planeCenter)
+        this.planeCenter.name = "center"
         this.scene.add(this.planeCenter)
 
 
@@ -100,23 +112,16 @@ export default class Billboard {
 
     mouseIn() {
         TweenLite.to(this.uniforms.u_h, this.time / 2, {
-            value: -4.0
+            value: -2.0
         })
-        TweenLite.to(this.uniforms.u_h, this.time / 2, {
-            value: 0,
-            delay: this.time / 2
-        })
+
     }
 
 
     mouseOut() {
 
         TweenLite.to(this.uniforms.u_h, this.time / 2, {
-            value: -4.0
-        })
-        TweenLite.to(this.uniforms.u_h, this.time / 2, {
             value: 0,
-            delay: this.time / 2
         })
     }
 
@@ -145,6 +150,7 @@ export default class Billboard {
         this.mouseOut = this.mouseOut.bind(this)
         this.onClick = this.onClick.bind(this)
         this.onBack = this.onBack.bind(this)
+        this.updateUv = this.updateUv.bind(this)
     }
 
 

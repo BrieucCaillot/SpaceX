@@ -37,6 +37,8 @@ class Home extends Component {
     this.rayFlag = false
     this.animFlag = false
 
+    this.uvInt = new THREE.Vector2()
+
     this.animationController = null
 
     this.oldDate = 0
@@ -62,11 +64,11 @@ class Home extends Component {
 
     let stepSize = 4;
     for (let i = 0; i < 3; i++) {
-      this.rocketSections.push(new RocketSection(this.rocketSectionsGroup, this.textureLoader, "starship", 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260', "Hallo ?", "Ouais ouais trql"))
+      this.rocketSections.push(new RocketSection(this.rocketSectionsGroup, this.textureLoader, "falconHeavy", 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260', "Hallo ?", "Ouais ouais trql"))
       this.rocketSections[i].rocketSection.position.x = stepSize * i;
     }
     this.scene.add(this.rocketSectionsGroup)
-    this.animationController = new AnimationController(this.rocketSectionsGroup, stepSize)
+    this.animationController = new AnimationController(this.rocketSectionsGroup, stepSize, this.camera)
 
     let animate = () => {
       requestAnimationFrame(animate);
@@ -93,7 +95,7 @@ class Home extends Component {
 
   initCamera() {
     const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.set(0, 0, 4)
+    camera.position.set(0, 0, -4)
     this.camera = camera
   }
 
@@ -147,7 +149,7 @@ class Home extends Component {
       this.animationController.prezMode()
       this.backFlag = true
       this.rocketSections.forEach(rocketSection => {
-        rocketSection.billBoard.onClick()
+        rocketSection.billBoard.onClick(this.uvInt)
       });
     }
   }
@@ -168,7 +170,7 @@ class Home extends Component {
 
   update() {
     this.renderer.render(this.scene, this.camera)
-    this.camera.lookAt(0, 0, 0)
+    this.camera.lookAt(0, 0, this.camera.position.z - 4)
     this.camera.position.x += (this.mousePos.x / 5 - this.camera.position.x) * 0.05
     this.camera.position.y += (-this.mousePos.y / 5 - this.camera.position.y) * 0.05
 
@@ -204,7 +206,14 @@ class Home extends Component {
       this.raycaster.setFromCamera(this.mousePos, this.camera);
       var intersects = this.raycaster.intersectObjects(this.scene.children[3].children[j].children);
       for (var i = 0; i < intersects.length; i++) {
-        this.rayFlag = true
+        if (intersects[i].object.name == 'center') {
+          this.rayFlag = true
+          this.uvInt = intersects[0].uv
+          for (let i = 0; i < this.rocketSections.length; i++) {
+            this.rocketSections[i].billBoard.updateUv(this.uvInt)
+          }
+        }
+
       }
     }
   }
@@ -217,6 +226,7 @@ class Home extends Component {
     return this.delta
   }
 
+
   resizeCanvas = () => {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.camera.aspect = window.innerWidth / window.innerHeight
@@ -227,6 +237,10 @@ class Home extends Component {
     return (
       <>
         <div ref={ref => (this.mount = ref)} />
+        <div className='enterScreen'>
+          welcome
+          <button onClick={() => { this.animationController.enterMuseum() }}></button>
+        </div>
         <img src={SpaceXLogo} className="logo"></img>
         <div className="back on">
           <img onClick={() => this.backClicked()} src={arrow}></img>
