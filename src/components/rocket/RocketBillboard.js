@@ -35,9 +35,7 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
 
   const createBillboard = (obj) => {
     planeCenter.current = obj
-    // const texture = new THREE.TextureLoader().load(rocket.flickr_images[0])
-    const texture = new THREE.TextureLoader().load(
-      'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')
+    const texture = new THREE.TextureLoader().load(rocket.flickr_images[0])
     uniforms.current = {
       u_tex: {
         type: 't',
@@ -70,7 +68,7 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     planeCenter.current.name = 'placeCenter'
 
     // console.log('planeCenter', planeCenter)
-    rocketSection.add(planeCenter)
+    rocketSection.add(planeCenter.current)
   }
 
   const createTopPlane = (topText) => {
@@ -98,48 +96,48 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     rocketSection.add(planeBot)
   }
 
-  const mouseIn = () => {
-    TweenLite.to(uniforms.u_h, time / 2, {
-      value: -4.0
-    })
-    TweenLite.to(uniforms.u_h, time / 2, {
-      value: 0,
-      delay: time / 2
-    })
-  }
-
-  const mouseOut = () => {
-    TweenLite.to(uniforms.u_h, time / 2, {
-      value: -4.0
-    })
-    TweenLite.to(uniforms.u_h, time / 2, {
-      value: 0,
-      delay: time / 2
-    })
-  }
-
-  const onClick = () => {
-    TweenLite.to(uniforms.u_alpha, time / 2, {
+  const onClick = () => {}
+  rocketSection.onClick = () => {
+    TweenLite.to(uniforms.current.u_alpha, time / 2, {
       value: 2.
     })
   }
 
-  const onBack = () => {
-    TweenLite.to(uniforms.u_alpha, time / 2, {
+  const onBack = () => {}
+  rocketSection.onBack = () => {
+    TweenLite.to(uniforms.current.u_alpha, time / 2, {
       value: -1.
     })
   }
 
-  const update = () => {
-  }
-
+  const update = () => {}
   rocketSection.update = () => {
-    console.log(uniforms.current, planeCenter.current)
     if (uniforms.current.u_delta) {
       uniforms.current.u_delta.value += 1
     }
   }
 
+  const mouseIn = () => {}
+  rocketSection.mouseIn = () => {
+    TweenLite.to(uniforms.current.u_h, time / 2, {
+      value: -4.0
+    })
+    TweenLite.to(uniforms.current.u_h, time / 2, {
+      value: 0,
+      delay: time / 2
+    })
+  }
+
+  const mouseOut = () => {}
+  rocketSection.mouseOut = () => {
+    TweenLite.to(uniforms.current.u_h, time / 2, {
+      value: -4.0
+    })
+    TweenLite.to(uniforms.current.u_h, time / 2, {
+      value: 0,
+      delay: time / 2
+    })
+  }
 
   return null
 }

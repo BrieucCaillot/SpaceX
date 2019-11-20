@@ -15,26 +15,26 @@ const ThreeRenderer = () => {
   const renderer = new THREE.WebGLRenderer({ antialias: true })
 
   useEffect(() => {
-    if (camera) {
-      renderer.setSize(window.innerWidth, window.innerHeight)
-      renderer.debug.checkShaderErrors = true
-      refContainer.appendChild(renderer.domElement);
-      dispatch(setRenderer(renderer))
+    console.log('renderer')
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.debug.checkShaderErrors = true
+    refContainer.appendChild(renderer.domElement);
+    dispatch(setRenderer(renderer))
 
-      window.addEventListener('resize', resizeCanvas)
-    }
+    window.addEventListener('resize', resizeCanvas)
     return () => {
       window.removeEventListener('resize', resizeCanvas)
     }
-  }, [camera])
+  }, [])
 
   const resizeCanvas = () => {
+    console.log('resize')
     renderer.setSize(window.innerWidth, window.innerHeight)
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
   }
 
-  return <div ref={(ref) => refContainer = ref}></div>
+  return <div className="canvas__container" ref={(ref) => refContainer = ref}></div>
 
 }
 

@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import * as THREE from "three";
 
-const gridTexture = require('../../assets/gridTexture.png')
+const gridTexture = require('../../assets/images/gridTexture.png')
 
 const Grid = () => {
 
   const ThreeState = useSelector(state => state.ThreeReducer)
-  const {scene} = ThreeState;
+  const { scene } = ThreeState;
 
   const size = 20;
   const tile = 1;
@@ -16,28 +16,27 @@ const Grid = () => {
 
   useEffect(() => {
 
-    if (scene) {
-      const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 100, 100), new THREE.MeshBasicMaterial({
+    const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 100, 100),
+      new THREE.MeshBasicMaterial({
         transparent: true,
         map: textureLoader.load(gridTexture),
       }))
 
-      for (let x = -size / 2; x < size / 2; x += tile) {
-        for (let y = 0; y < size; y += tile) {
-          let plClone = plane.clone()
-          plClone.position.set(x, y, 0)
-          grid.add(plClone)
-        }
+    for (let x = -size / 2; x < size / 2; x += tile) {
+      for (let y = 0; y < size; y += tile) {
+        let plClone = plane.clone()
+        plClone.position.set(x, y, 0)
+        grid.add(plClone)
       }
-
-      grid.position.z = 5;
-      grid.position.y = -0.8;
-      grid.rotateX(-Math.PI / 2)
-
-      scene.add(grid)
     }
 
-  }, [scene])
+    grid.position.z = 5;
+    grid.position.y = -0.8;
+    grid.rotateX(-Math.PI / 2)
+
+    scene.add(grid)
+
+  }, [])
 
   return null
 

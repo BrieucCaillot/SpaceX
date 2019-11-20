@@ -14,7 +14,7 @@ const RocketModel = ({rocket, rocketSection}) => {
 
   const loadModel = () => {
     let url = '/rockets/' + rocket.rocket_id + '.glb'
-    console.log(url)
+    // console.log(url)
     new GLTFLoader().load(url, modelLoaded)
   }
 

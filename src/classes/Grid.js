@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 
-const gridTexture = require('../assets/gridTexture.png')
+const gridTexture = require('../assets/images/gridTexture.png')
 
 export default class Grid {
     constructor(scene, textureLoader) {

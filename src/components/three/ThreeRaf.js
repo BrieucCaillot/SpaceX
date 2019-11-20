@@ -10,10 +10,10 @@ const ThreeRaf = () => {
   const mousePos = new THREE.Vector2();
 
   useEffect(() => {
-    if (renderer && camera && rocketSections) {
-      animate()
-    }
-  }, [ThreeState])
+    console.log('raf')
+    window.addEventListener('mousemove', mouseMove)
+    animate()
+  }, [])
 
   const animate = () => {
     requestAnimationFrame(animate);
@@ -31,7 +31,11 @@ const ThreeRaf = () => {
         rocketSection.update()
       }
     }
+  }
 
+  const mouseMove = (e) => {
+    mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mousePos.y = - (e.clientY / window.innerHeight) * 2 + 1;
   }
 
   return null

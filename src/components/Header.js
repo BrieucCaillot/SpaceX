@@ -1,9 +1,16 @@
-import React from 'react';
-import SpaceXLogo from '../assets/spaceXLogo.png';
+import React, { useEffect } from 'react';
+import SpaceXLogo from '../assets/images/spaceXLogo.png';
 
 const Header = () => {
+
+  useEffect(() => {
+    console.log('header')
+  }, [])
+
   return (
-    <img src={SpaceXLogo} className="logo"></img>
+    <div className="header">
+      <img src={SpaceXLogo} className="logo" alt="logo"></img>
+    </div>
   )
 }
 

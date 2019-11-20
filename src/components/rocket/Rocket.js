@@ -13,20 +13,23 @@ const Rocket = ({ rocket, position }) => {
 
   const dispatch = useDispatch()
 
-  const [rocketSection, setRocketSection] = useState(new THREE.Group())
+  const [rocketSection] = useState(new THREE.Group())
 
   useEffect(() => {
-    if (rocketSection.children.length >= 2) {
+    rocketSection.position.x = position;
+    setTimeout(() => {
       rocketSection.position.x = position;
       dispatch({
         type: SET_ROCKETS_SECTIONS,
         value: rocketSection
       })
-      if (rocketSections.children.length == 4) {
+      if (rocketSections.children.length === 4) {
         scene.add(rocketSections)
       }
-    }
-  }, [scene, rocketSection])
+    }, 3000)
+
+  }, [])
+
 
   return (
     <>
