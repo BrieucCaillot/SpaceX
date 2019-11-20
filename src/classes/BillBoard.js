@@ -78,7 +78,6 @@ export default class Billboard {
             fragmentShader: PlaneFragment,
             transparent: true
         })
-        console.log(this.planeCenter)
         this.planeCenter.name = "center"
         this.scene.add(this.planeCenter)
 
