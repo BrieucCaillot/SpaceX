@@ -10,7 +10,7 @@ import { TweenLite } from "gsap";
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import createCanTex from '../../classes/createCanTex';
 
-const RocketBillboard = ({ rocket, rocketSection }) => {
+const RocketBillboard = ({ index, rocket, rocketSection }) => {
 
   const ThreeState = useSelector(state => state.ThreeReducer)
   const { scene } = ThreeState;
@@ -23,7 +23,6 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     if (scene) {
       loadPlaneCenter()
       createTopPlane(rocket.rocket_name)
-      createBotPlane(rocket.rocket_name)
     }
   }, [scene])
 
@@ -35,7 +34,12 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
 
   const createBillboard = (obj) => {
     planeCenter.current = obj
-    const texture = new THREE.TextureLoader().load(rocket.flickr_images[0])
+    let texture = null;
+    if (index == 0) {
+      texture = new THREE.TextureLoader().load("/falcon1.jpg")
+    } else {
+      texture = new THREE.TextureLoader().load(rocket.flickr_images[0])
+    }
     uniforms.current = {
       u_tex: {
         type: 't',
@@ -83,34 +87,24 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     rocketSection.add(planeTop)
   }
 
-  const createBotPlane = (botText) => {
-    let tex = new THREE.CanvasTexture(createCanTex(botText, true))
-    let planeBot = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), new THREE.MeshBasicMaterial({
-      map: tex,
-      transparent: true,
-      side: THREE.DoubleSide
-    }))
-    tex.needsUpdate = true
-    planeBot.position.set(0.55, -0.55, 0)
-    planeBot.name = 'planeBot'
-    rocketSection.add(planeBot)
+  const onClick = () => {
   }
-
-  const onClick = () => {}
   rocketSection.onClick = () => {
     TweenLite.to(uniforms.current.u_alpha, time / 2, {
       value: 2.
     })
   }
 
-  const update = () => {}
+  const update = () => {
+  }
   rocketSection.update = () => {
     if (uniforms.current.u_delta) {
       uniforms.current.u_delta.value += 1
     }
   }
 
-  const onBack = () => {}
+  const onBack = () => {
+  }
   rocketSection.onBack = () => {
     TweenLite.to(uniforms.current.u_alpha, time / 2, {
       value: -1.

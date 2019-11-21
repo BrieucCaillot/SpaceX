@@ -24,7 +24,7 @@ const RocketModel = ({ rocket, rocketSection }) => {
     if (rocket.rocket_id === 'falcon1') {
       let s = 0.03
       rocketOBJ.scale.set(s, s, s)
-      rocketOBJ.position.set(-0.7, -0.9, 0)
+      rocketOBJ.position.set(-0.7, -0.8, 0)
     } else {
       let s = 0.13
       rocketOBJ.scale.set(s, s, s)
