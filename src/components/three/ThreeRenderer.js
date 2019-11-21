@@ -15,7 +15,6 @@ const ThreeRenderer = () => {
   const renderer = new THREE.WebGLRenderer({ antialias: true })
 
   useEffect(() => {
-    console.log('renderer')
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.debug.checkShaderErrors = true
     refContainer.appendChild(renderer.domElement);
@@ -28,7 +27,6 @@ const ThreeRenderer = () => {
   }, [])
 
   const resizeCanvas = () => {
-    console.log('resize')
     renderer.setSize(window.innerWidth, window.innerHeight)
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()

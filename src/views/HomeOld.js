@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import * as THREE from "three";
 
-// import { GUI } from "three/examples/jsm/libs/dat.gui.module.js";
-
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import Grid from '../classes/Grid'
@@ -16,7 +14,7 @@ import Rockets from '../components/Rockets';
 import arrow from '../assets/images/arrow.svg'
 import arrowLeft from '../assets/images/arrowLeft.svg'
 import arrowRight from '../assets/images/arrowRight.svg'
-import SpaceXLogo from '../assets/images/spaceXLogo.png'
+import SpaceXLogo from '../assets/images/spacex-logo.svg'
 
 class HomeOld extends Component {
 

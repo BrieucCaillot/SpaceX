@@ -5,7 +5,7 @@ import PlaneVertex from '../shaders/PlaneVertex'
 
 import { TweenLite } from "gsap";
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
-import grid from '../assets/grid.fbx'
+import grid from '../assets/models/grid.fbx'
 import createCanTex from './createCanTex'
 
 export default class Billboard {

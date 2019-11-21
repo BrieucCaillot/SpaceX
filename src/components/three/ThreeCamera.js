@@ -16,7 +16,6 @@ const ThreeCamera = () => {
     camera.position.set(0, 0, 4)
     dispatch(setCamera(camera))
     window.camera = camera
-    console.log('camera')
   }, [])
 
   return null

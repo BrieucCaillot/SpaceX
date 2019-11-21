@@ -13,8 +13,7 @@ const RocketModel = ({ rocket, rocketSection }) => {
   }, [scene])
 
   const loadModel = () => {
-    let url = '/rockets/' + rocket.rocket_id + '.glb'
-    // console.log(url)
+    let url = require('../../assets/models/' + rocket.rocket_id + '.glb')
     new GLTFLoader().load(url, modelLoaded)
   }
 

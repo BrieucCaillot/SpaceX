@@ -13,7 +13,6 @@ const ThreeScene = () => {
     scene.fog = new THREE.Fog(0xFFFFFF, 8, 10)
     scene.background = new THREE.Color(0xFFFFFF)
     dispatch(setScene(scene))
-    console.log('scene')
   }, [])
 
   return null

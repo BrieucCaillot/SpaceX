@@ -3,14 +3,10 @@ import { useSelector } from 'react-redux';
 import * as THREE from 'three';
 import { TweenLite } from "gsap";
 
-import arrow from '../assets/images/arrow.svg'
-import arrowLeft from '../assets/images/arrowLeft.svg'
-import arrowRight from '../assets/images/arrowRight.svg'
-
 const Navigation = () => {
 
   const ThreeState = useSelector(state => state.ThreeReducer)
-  const { scene, camera, rocketSections } = ThreeState;
+  const { rocketSections } = ThreeState;
 
   const stepSize = rocketSections.children.length;
   const mousePos = new THREE.Vector2();
@@ -18,30 +14,28 @@ const Navigation = () => {
   let backFlag = false
   let positionIndex = 0;
 
-  const raycaster = new THREE.Raycaster();
   let rayFlag = false
   let animFlag = false
 
   useEffect(() => {
-    window.addEventListener('mousemove', mouseMove)
-    window.addEventListener('click', onClick)
-    window.addEventListener('keydown', (e) => {
-      if (e.keyCode === 39) {
-        moveToLeft()
-      } else if (e.keyCode === 37) {
-        moveToRight()
-      }
-    })
-  })
+    if (stepSize == 4) {
+      window.addEventListener('mousemove', mouseMove)
+      window.addEventListener('click', onClick)
+      window.addEventListener('keydown', onKeyDown)
+    }
+    return () => {
+      window.removeEventListener('mousemove', mouseMove)
+      window.removeEventListener('click', onClick)
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [stepSize])
+
+  const onKeyDown = (e) => {
+    if (e.keyCode === 39) moveToLeft()
+    if (e.keyCode === 37) moveToRight()
+  }
 
   const onClick = () => {
-    // console.log('rayFlag', rayFlag)
-    // if (rayFlag) {
-    // document.querySelector('.previous').classList.add('on')
-    // document.querySelector('.next').classList.add('on')
-    // setTimeout(() => {
-    //   document.querySelector('.back').classList.remove('on')
-    // }, 400)
     if (!prezFlag) {
       prezMode()
     } else {
@@ -49,26 +43,7 @@ const Navigation = () => {
     }
     backFlag = true
     rocketSections.children[positionIndex].onClick()
-    // }
   }
-
-  const backClicked = () => {
-    if (backFlag) {
-      console.log('backclicked')
-      document.querySelector('.back').classList.add('on')
-      setTimeout(() => {
-        document.querySelector('.next').classList.remove('on')
-        document.querySelector('.previous').classList.remove('on')
-      }, 400)
-      if (!prezFlag) {
-        prezMode()
-      } else {
-        back()
-      }
-      rocketSections.children[positionIndex].onBack()
-    }
-  }
-
 
   const moveToLeft = () => {
     if (!prezFlag) {
@@ -92,7 +67,6 @@ const Navigation = () => {
     }
   }
 
-
   const moveForward = () => {
     if (!prezFlag) {
       TweenLite.to(rocketSections.position, 0.5, {
@@ -111,18 +85,15 @@ const Navigation = () => {
 
   const back = () => {
     prezFlag = false
-    console.log('back')
     TweenLite.to(rocketSections.position, 0.5, {
       z: 0,
       x: positionIndex * -stepSize,
       y: 0,
     })
-
   }
 
   const prezMode = () => {
     prezFlag = true
-    console.log('prezmode')
     TweenLite.to(rocketSections.position, 0.5, {
       z: 2,
       x: 0.3 + positionIndex * -stepSize,
@@ -148,44 +119,7 @@ const Navigation = () => {
     }
   }
 
-  // const raycast = () => {
-  //   // rayFlag = false
-  //   for (let j = 0; j < 3; j++) {
-  //     // raycaster.setFromCamera(mousePos, camera);
-  //     console.log('scene children', scene.children)
-  //     // var intersects = raycaster.intersectObjects(scene.children[3].children[j].children);
-  //     // for (var i = 0; i < intersects.length; i++) {
-  //     rayFlag = true
-  //     // }
-  //   }
-  // }
-
-  const raycast = () => {
-    rayFlag = false
-    for (let j = 0; j < 3; j++) {
-      // raycaster.setFromCamera(mousePos, camera);
-      // console.log(camera)
-      var intersects = raycaster.intersectObjects(rocketSections.children[j].children);
-      for (var i = 0; i < intersects.length; i++) {
-        rayFlag = true
-      }
-    }
-  }
-
-  return (
-    <div className="navigation">
-      {/*<div className="back on">*/}
-      {/*  <img onClick={() => backClicked()} src={arrow} alt="back"></img>*/}
-      {/*</div>*/}
-      {/*<div className="arrows">*/}
-      {/*  <img onClick={() => moveToRight()}*/}
-      {/*       src={arrowLeft}*/}
-      {/*       className="previous"*/}
-      {/*       alt="arrow-left"></img>*/}
-      {/*  <img onClick={() => moveToLeft()} src={arrowRight} className="next" alt="arrow-right"></img>*/}
-      {/*</div>*/}
-    </div>
-  )
+  return null
 }
 
 export default Navigation;

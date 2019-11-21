@@ -16,9 +16,8 @@ export default class Rocket {
 
     load() {
         // this.rocketId = 'falconHeavy'
-        let url = '/rockets/' + this.rocketId + '.glb'
-        console.log(url)
-        // let url = './src/assets/rockets/falcon1.glb'
+        let url = '/models/' + this.rocketId + '.glb'
+        // let url = './src/assets/models/falcon1.glb'
         this.loader.load(url, this.loaded)
 
     }

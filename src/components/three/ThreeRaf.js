@@ -10,7 +10,6 @@ const ThreeRaf = () => {
   const mousePos = new THREE.Vector2();
 
   useEffect(() => {
-    console.log('raf')
     window.addEventListener('mousemove', mouseMove)
     animate()
   }, [])

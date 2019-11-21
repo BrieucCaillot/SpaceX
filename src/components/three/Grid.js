@@ -11,7 +11,6 @@ const Grid = () => {
 
   const size = 20;
   const tile = 1;
-  const textureLoader = new THREE.TextureLoader()
   const grid = new THREE.Group()
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const Grid = () => {
     const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 100, 100),
       new THREE.MeshBasicMaterial({
         transparent: true,
-        map: textureLoader.load(gridTexture),
+        map: new THREE.TextureLoader().load(gridTexture),
       }))
 
     for (let x = -size / 2; x < size / 2; x += tile) {

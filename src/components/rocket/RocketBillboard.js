@@ -4,7 +4,7 @@ import * as THREE from 'three';
 
 import PlaneFragment from '../../shaders/PlaneFragment';
 import PlaneVertex from '../../shaders/PlaneVertex';
-import grid from '../../assets/grid.fbx';
+import grid from '../../assets/models/grid.fbx';
 
 import { TweenLite } from "gsap";
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
@@ -36,7 +36,8 @@ const RocketBillboard = ({ index, rocket, rocketSection }) => {
     planeCenter.current = obj
     let texture = null;
     if (index == 0) {
-      texture = new THREE.TextureLoader().load("/falcon1.jpg")
+      let url = require('../../assets/images/falcon1.jpg')
+      texture = new THREE.TextureLoader().load(url)
     } else {
       texture = new THREE.TextureLoader().load(rocket.flickr_images[0])
     }

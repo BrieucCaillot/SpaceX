@@ -6,7 +6,7 @@ import { GET_ALL_ROCKETS_WITH_LAUNCHES } from './store/actions/types';
 import { getAllLaunches, getAllRockets } from './store/actions';
 
 import RocketsMuseum from './views/RocketsMuseum';
-import app from './scss/app.scss';
+import './assets/scss/app.scss';
 
 const App = () => {
 
