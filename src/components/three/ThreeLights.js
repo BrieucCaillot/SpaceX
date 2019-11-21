@@ -12,7 +12,7 @@ const ThreeLight = () => {
       const light = new THREE.AmbientLight()
       const pointLight = new THREE.PointLight()
       pointLight.position.set(10, 10, 0)
-      scene.add(light, pointLight)
+      scene.add(pointLight)
     }
   }, [scene])
 
