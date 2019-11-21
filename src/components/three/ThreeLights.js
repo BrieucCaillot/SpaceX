@@ -13,7 +13,7 @@ const ThreeLight = () => {
       light.intensity = 0.4
       const pointLight = new THREE.PointLight()
       pointLight.position.set(10, 10, 10)
-      pointLight.intensity = 0.5
+      pointLight.intensity = 0.7
       scene.add(pointLight, light)
     }
   }, [scene])

@@ -23,7 +23,7 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     if (scene) {
       loadPlaneCenter()
       createTopPlane(rocket.rocket_name)
-      createBotPlane(rocket.rocket_name)
+      // createBotPlane(rocket.rocket_name)
     }
   }, [scene])
 
@@ -96,21 +96,21 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     rocketSection.add(planeBot)
   }
 
-  const onClick = () => {}
+  const onClick = () => { }
   rocketSection.onClick = () => {
     TweenLite.to(uniforms.current.u_alpha, time / 2, {
       value: 2.
     })
   }
 
-  const update = () => {}
+  const update = () => { }
   rocketSection.update = () => {
     if (uniforms.current.u_delta) {
       uniforms.current.u_delta.value += 1
     }
   }
 
-  const onBack = () => {}
+  const onBack = () => { }
   rocketSection.onBack = () => {
     TweenLite.to(uniforms.current.u_alpha, time / 2, {
       value: -1.

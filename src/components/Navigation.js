@@ -13,7 +13,6 @@ const Navigation = () => {
   const { scene, camera, rocketSections } = ThreeState;
 
   const stepSize = rocketSections.children.length;
-  const mousePos = new THREE.Vector2();
   let prezFlag = false
   let backFlag = false
   let positionIndex = 0;
@@ -24,7 +23,7 @@ const Navigation = () => {
 
   useEffect(() => {
     window.addEventListener('mousemove', mouseMove)
-    window.addEventListener('click', onClick)
+    // window.addEventListener('click', onClick)
     window.addEventListener('keydown', (e) => {
       if (e.keyCode === 39) {
         moveToLeft()
@@ -34,23 +33,7 @@ const Navigation = () => {
     })
   })
 
-  const onClick = () => {
-    // console.log('rayFlag', rayFlag)
-    // if (rayFlag) {
-    // document.querySelector('.previous').classList.add('on')
-    // document.querySelector('.next').classList.add('on')
-    // setTimeout(() => {
-    //   document.querySelector('.back').classList.remove('on')
-    // }, 400)
-    if (!prezFlag) {
-      prezMode()
-    } else {
-      back()
-    }
-    backFlag = true
-    rocketSections.children[positionIndex].onClick()
-    // }
-  }
+
 
   const backClicked = () => {
     if (backFlag) {
@@ -132,45 +115,19 @@ const Navigation = () => {
 
   const mouseMove = (e) => {
     if (rocketSections.children[positionIndex]) {
-      mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
       // raycast()
       if (animFlag === false) {
         moveForward()
-        rocketSections.children[positionIndex].mouseIn()
         animFlag = true
       }
       if (rayFlag === false && animFlag === true) {
         moveBackward()
-        rocketSections.children[positionIndex].mouseOut()
         animFlag = false
       }
     }
   }
 
-  // const raycast = () => {
-  //   // rayFlag = false
-  //   for (let j = 0; j < 3; j++) {
-  //     // raycaster.setFromCamera(mousePos, camera);
-  //     console.log('scene children', scene.children)
-  //     // var intersects = raycaster.intersectObjects(scene.children[3].children[j].children);
-  //     // for (var i = 0; i < intersects.length; i++) {
-  //     rayFlag = true
-  //     // }
-  //   }
-  // }
 
-  const raycast = () => {
-    rayFlag = false
-    for (let j = 0; j < 3; j++) {
-      // raycaster.setFromCamera(mousePos, camera);
-      // console.log(camera)
-      var intersects = raycaster.intersectObjects(rocketSections.children[j].children);
-      for (var i = 0; i < intersects.length; i++) {
-        rayFlag = true
-      }
-    }
-  }
 
   return (
     <div className="navigation">

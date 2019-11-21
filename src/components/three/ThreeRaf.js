@@ -8,6 +8,7 @@ const ThreeRaf = () => {
   const { renderer, scene, camera, rocketSections } = ThreeState;
 
   const mousePos = new THREE.Vector2();
+  const raycaster = new THREE.Raycaster()
 
   useEffect(() => {
     console.log('raf')
@@ -33,7 +34,26 @@ const ThreeRaf = () => {
     }
   }
 
+
+
+  const raycast = () => {
+    // this.rayFlag = false
+    if (scene.children.length != undefined) {
+      for (let j = 0; j < scene.children[3].children.length; j++) {
+        raycaster.setFromCamera(mousePos, camera);
+        var intersects = raycaster.intersectObjects(scene.children[3].children[j].children);
+        for (var i = 0; i < intersects.length; i++) {
+          if (intersects[i].object.name == 'placeCenter') {
+            // this.rayFlag = true
+          }
+        }
+      }
+    }
+  }
+
+
   const mouseMove = (e) => {
+    raycast()
     mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
     mousePos.y = - (e.clientY / window.innerHeight) * 2 + 1;
   }
