@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-const RocketModel = ({rocket, rocketSection}) => {
+const RocketModel = ({ rocket, rocketSection }) => {
 
   const ThreeState = useSelector(state => state.ThreeReducer)
   const { scene } = ThreeState;
@@ -19,18 +19,18 @@ const RocketModel = ({rocket, rocketSection}) => {
   }
 
   const modelLoaded = (obj) => {
-    let rocket = obj.scene;
-    if (rocket.rocket_id === 'falconHeavy') {
-      let s = 0.04
-      rocket.scale.set(s, s, s)
-      rocket.rotateY(Math.PI / 2)
-      rocket.position.set(-0.7, -0.9, 0)
+    let rocketOBJ = obj.scene;
+    rocketOBJ.rotateY(Math.PI)
+    if (rocket.rocket_id === 'falcon1') {
+      let s = 0.03
+      rocketOBJ.scale.set(s, s, s)
+      rocketOBJ.position.set(-0.7, -0.9, 0)
     } else {
-      let s = 0.07
-      rocket.scale.set(s, s, s)
-      rocket.position.set(-0.7, -0.8, 0)
+      let s = 0.13
+      rocketOBJ.scale.set(s, s, s)
+      rocketOBJ.position.set(-0.7, -0.8, 0)
     }
-    rocketSection.add(rocket)
+    rocketSection.add(rocketOBJ)
   }
 
   return null
