@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/SpaceX/static/css/main.97bcbf87.chunk.css",
+    "main.js": "/SpaceX/static/js/main.65dc009c.chunk.js",
+    "main.js.map": "/SpaceX/static/js/main.65dc009c.chunk.js.map",
+    "runtime-main.js": "/SpaceX/static/js/runtime-main.1dc3e470.js",
+    "runtime-main.js.map": "/SpaceX/static/js/runtime-main.1dc3e470.js.map",
+    "static/js/2.895624cb.chunk.js": "/SpaceX/static/js/2.895624cb.chunk.js",
+    "static/js/2.895624cb.chunk.js.map": "/SpaceX/static/js/2.895624cb.chunk.js.map",
+    "index.html": "/SpaceX/index.html",
+    "precache-manifest.235edb36c499d355abb09a3b46c2a849.js": "/SpaceX/precache-manifest.235edb36c499d355abb09a3b46c2a849.js",
+    "service-worker.js": "/SpaceX/service-worker.js",
+    "static/css/main.97bcbf87.chunk.css.map": "/SpaceX/static/css/main.97bcbf87.chunk.css.map",
+    "static/media/falcon1.jpg": "/SpaceX/static/media/falcon1.530ffb5d.jpg",
+    "static/media/falcon1.glb": "/SpaceX/static/media/falcon1.66899c14.glb",
+    "static/media/falcon9.glb": "/SpaceX/static/media/falcon9.c6f7c27c.glb",
+    "static/media/falconheavy.glb": "/SpaceX/static/media/falconheavy.a44833df.glb",
+    "static/media/grid.fbx": "/SpaceX/static/media/grid.c94564bb.fbx",
+    "static/media/spacex-logo.svg": "/SpaceX/static/media/spacex-logo.6ff54c0f.svg",
+    "static/media/starship.glb": "/SpaceX/static/media/starship.6a531273.glb"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1dc3e470.js",
+    "static/js/2.895624cb.chunk.js",
+    "static/css/main.97bcbf87.chunk.css",
+    "static/js/main.65dc009c.chunk.js"
+  ]
+}
