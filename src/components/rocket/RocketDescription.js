@@ -33,7 +33,6 @@ const RocketDescription = ({ rocket, rocketSection }) => {
         </div>
         <div className="rocket__about rocket__about__right">
           {rocket.launches.map((launch, index) => {
-            console.log(launch)
             return (
               <>
                 <div key={index} className="rocket__about__right__launch">

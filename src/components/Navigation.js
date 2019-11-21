@@ -37,11 +37,11 @@ const Navigation = () => {
   const onClick = () => {
     // console.log('rayFlag', rayFlag)
     // if (rayFlag) {
-    document.querySelector('.previous').classList.add('on')
-    document.querySelector('.next').classList.add('on')
-    setTimeout(() => {
-      document.querySelector('.back').classList.remove('on')
-    }, 400)
+    // document.querySelector('.previous').classList.add('on')
+    // document.querySelector('.next').classList.add('on')
+    // setTimeout(() => {
+    //   document.querySelector('.back').classList.remove('on')
+    // }, 400)
     if (!prezFlag) {
       prezMode()
     } else {
@@ -174,16 +174,16 @@ const Navigation = () => {
 
   return (
     <div className="navigation">
-      <div className="back on">
-        <img onClick={() => backClicked()} src={arrow} alt="back"></img>
-      </div>
-      <div className="arrows">
-        <img onClick={() => moveToRight()}
-             src={arrowLeft}
-             className="previous"
-             alt="arrow-left"></img>
-        <img onClick={() => moveToLeft()} src={arrowRight} className="next" alt="arrow-right"></img>
-      </div>
+      {/*<div className="back on">*/}
+      {/*  <img onClick={() => backClicked()} src={arrow} alt="back"></img>*/}
+      {/*</div>*/}
+      {/*<div className="arrows">*/}
+      {/*  <img onClick={() => moveToRight()}*/}
+      {/*       src={arrowLeft}*/}
+      {/*       className="previous"*/}
+      {/*       alt="arrow-left"></img>*/}
+      {/*  <img onClick={() => moveToLeft()} src={arrowRight} className="next" alt="arrow-right"></img>*/}
+      {/*</div>*/}
     </div>
   )
 }
