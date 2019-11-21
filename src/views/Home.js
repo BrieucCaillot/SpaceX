@@ -64,7 +64,7 @@ class Home extends Component {
 
     let stepSize = 4;
     for (let i = 0; i < 3; i++) {
-      this.rocketSections.push(new RocketSection(this.rocketSectionsGroup, this.textureLoader, "falconHeavy", 'https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260', "Hallo ?", "Ouais ouais trql"))
+      this.rocketSections.push(new RocketSection(this.rocketSectionsGroup, this.textureLoader, "falconHeavy", '/falcon.png', "Falcon Heavy", "Ouais ouais trql"))
       this.rocketSections[i].rocketSection.position.x = stepSize * i;
     }
     this.scene.add(this.rocketSectionsGroup)
@@ -110,8 +110,10 @@ class Home extends Component {
 
   initLights() {
     const light = new THREE.AmbientLight()
+    light.intensity = 0.3
     const pointLight = new THREE.PointLight()
-    pointLight.position.set(10, 10, 0)
+    pointLight.intensity = 0.8
+    pointLight.position.set(10, 10, 10)
     this.scene.add(light, pointLight)
   }
 
@@ -238,16 +240,26 @@ class Home extends Component {
       <>
         <div ref={ref => (this.mount = ref)} />
         <div className='enterScreen'>
-          welcome
-          <button onClick={() => { this.animationController.enterMuseum() }}></button>
+          <p>Welcome to:</p>
+          <h1>The Rocket Museum</h1>
+          <div className="enterAction">
+            <button onClick={() => {
+              this.animationController.enterMuseum()
+              document.querySelector('.enterScreen').classList.add("on")
+              setTimeout(() => {
+                document.querySelector('.previous').classList.remove("on")
+                document.querySelector('.next').classList.remove("on")
+              }, 3000);
+            }}></button>
+          </div>
         </div>
         <img src={SpaceXLogo} className="logo"></img>
-        <div className="back on">
-          <img onClick={() => this.backClicked()} src={arrow}></img>
+        <div className="back on" onClick={() => this.backClicked()} >
+          <img src={arrow}></img>
         </div>
         <div className="arrows">
-          <img onClick={() => this.leftClicked()} src={arrowLeft} className="previous"></img>
-          <img onClick={() => this.rightClicked()} src={arrowRight} className="next"></img>
+          <img onClick={() => this.leftClicked()} src={arrowLeft} className="previous on"></img>
+          <img onClick={() => this.rightClicked()} src={arrowRight} className="next on"></img>
         </div>
         <Rockets />
       </>

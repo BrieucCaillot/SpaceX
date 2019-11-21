@@ -26,7 +26,7 @@ export default class Billboard {
 
         this.loadPlaneCenter()
         this.createTopPlane(topText)
-        this.createBotPlane(botText)
+        // this.createBotPlane(botText)
     }
 
     loadPlaneCenter() {
@@ -89,7 +89,7 @@ export default class Billboard {
         let tex = new THREE.CanvasTexture(createCanTex(topText, true))
         this.planeTop = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.5), new THREE.MeshBasicMaterial({
             map: tex,
-            transparent: true
+            transparent: true,
         }))
         tex.needsUpdate = true
         this.planeTop.position.set(0.55, 0.5, 0)
@@ -129,11 +129,18 @@ export default class Billboard {
         TweenLite.to(this.uniforms.u_alpha, this.time / 2, {
             value: 2.
         })
+
+        TweenLite.to(this.planeTop.material, this.time / 2, {
+            opacity: 0.
+        })
     }
 
     onBack() {
         TweenLite.to(this.uniforms.u_alpha, this.time / 2, {
             value: -1.
+        })
+        TweenLite.to(this.planeTop.material, this.time / 2, {
+            opacity: 1.
         })
     }
 

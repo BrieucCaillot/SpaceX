@@ -1,4 +1,4 @@
-import { TweenLite } from "gsap";
+import { TweenLite, Power4 } from "gsap";
 
 export default class AnimationController {
     constructor(sections, stepSize, camera) {
@@ -72,8 +72,9 @@ export default class AnimationController {
 
     enterMuseum() {
         this.prezFlag = true
-        TweenLite.to(this.camera.position, 2, {
+        TweenLite.to(this.camera.position, 4, {
             z: 4,
+            ease: Power4.easeInOut()
         })
     }
 
