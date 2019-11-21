@@ -1,0 +1,43 @@
+.rocket__about {
+  position: absolute;
+  top: 100px;
+  height: calc(100vh - 200px);
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__section {
+    margin: 20px 0;
+  }
+
+  h2 {
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  .success {
+    color: forestgreen;
+  }
+
+  .fail {
+    color: red;
+  }
+
+  &__left {
+    left: 8%;
+    max-width: 370px;
+  }
+
+  &__right {
+    left: 50%;
+    max-width: calc(50% - 100px);
+    &__launch {
+      margin: 60px 0;
+    }
+  }
+}
+
+

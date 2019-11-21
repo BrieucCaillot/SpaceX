@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import RocketBillboard from './RocketBillboard';
 import RocketModel from './RocketModel';
 import { SET_ROCKETS_SECTIONS } from '../../store/actions/types';
+import RocketDescription from './RocketDescription';
 
 const Rocket = ({ rocket, position }) => {
 
@@ -35,6 +36,7 @@ const Rocket = ({ rocket, position }) => {
     <>
       <RocketBillboard rocket={rocket} rocketSection={rocketSection} />
       <RocketModel rocket={rocket} rocketSection={rocketSection} />
+      <RocketDescription rocket={rocket} rocketSection={rocketSection}  />
     </>
   )
 }

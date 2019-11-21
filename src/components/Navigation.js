@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import * as THREE from 'three';
 import { TweenLite } from "gsap";
@@ -35,38 +35,44 @@ const Navigation = () => {
   })
 
   const onClick = () => {
-    if (rayFlag) {
-      document.querySelector('.previous').classList.add('on')
-      document.querySelector('.next').classList.add('on')
-      setTimeout(() => {
-        document.querySelector('.back').classList.remove('on')
-      }, 400)
+    // console.log('rayFlag', rayFlag)
+    // if (rayFlag) {
+    document.querySelector('.previous').classList.add('on')
+    document.querySelector('.next').classList.add('on')
+    setTimeout(() => {
+      document.querySelector('.back').classList.remove('on')
+    }, 400)
+    if (!prezFlag) {
       prezMode()
-      backFlag = true
-      rocketSections.forEach(rocketSection => {
-        rocketSection.onClick()
-      });
+    } else {
+      back()
     }
+    backFlag = true
+    rocketSections.children[positionIndex].onClick()
+    // }
   }
 
   const backClicked = () => {
     if (backFlag) {
+      console.log('backclicked')
       document.querySelector('.back').classList.add('on')
       setTimeout(() => {
         document.querySelector('.next').classList.remove('on')
         document.querySelector('.previous').classList.remove('on')
       }, 400)
-      back()
-      rocketSections.forEach(rocketSection => {
-        rocketSection.onBack()
-      });
+      if (!prezFlag) {
+        prezMode()
+      } else {
+        back()
+      }
+      rocketSections.children[positionIndex].onBack()
     }
   }
 
 
   const moveToLeft = () => {
     if (!prezFlag) {
-      if (positionIndex < 3) {
+      if (positionIndex < stepSize - 1) {
         positionIndex++;
         TweenLite.to(rocketSections.position, 1, {
           x: positionIndex * -stepSize
@@ -105,6 +111,7 @@ const Navigation = () => {
 
   const back = () => {
     prezFlag = false
+    console.log('back')
     TweenLite.to(rocketSections.position, 0.5, {
       z: 0,
       x: positionIndex * -stepSize,
@@ -115,6 +122,7 @@ const Navigation = () => {
 
   const prezMode = () => {
     prezFlag = true
+    console.log('prezmode')
     TweenLite.to(rocketSections.position, 0.5, {
       z: 2,
       x: 0.3 + positionIndex * -stepSize,
@@ -123,34 +131,44 @@ const Navigation = () => {
   }
 
   const mouseMove = (e) => {
-    mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mousePos.y = - (e.clientY / window.innerHeight) * 2 + 1;
-    // raycast()
-    if (rayFlag === true && animFlag === false) {
-      moveForward()
-      for (let i = 0; i < rocketSections.length; i++) {
-        rocketSections[i].mouseIn()
+    if (rocketSections.children[positionIndex]) {
+      mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      // raycast()
+      if (animFlag === false) {
+        moveForward()
+        rocketSections.children[positionIndex].mouseIn()
+        animFlag = true
       }
-      animFlag = true
-    }
-    if (rayFlag === false && animFlag === true) {
-      moveBackward()
-      for (let i = 0; i < rocketSections.length; i++) {
-        rocketSections[i].mouseOut()
+      if (rayFlag === false && animFlag === true) {
+        moveBackward()
+        rocketSections.children[positionIndex].mouseOut()
+        animFlag = false
       }
-      animFlag = false
     }
   }
 
+  // const raycast = () => {
+  //   // rayFlag = false
+  //   for (let j = 0; j < 3; j++) {
+  //     // raycaster.setFromCamera(mousePos, camera);
+  //     console.log('scene children', scene.children)
+  //     // var intersects = raycaster.intersectObjects(scene.children[3].children[j].children);
+  //     // for (var i = 0; i < intersects.length; i++) {
+  //     rayFlag = true
+  //     // }
+  //   }
+  // }
+
   const raycast = () => {
-    // rayFlag = false
+    rayFlag = false
     for (let j = 0; j < 3; j++) {
       // raycaster.setFromCamera(mousePos, camera);
-      console.log('scene', scene.children)
-      // var intersects = raycaster.intersectObjects(scene.children[3].children[j].children);
-      // for (var i = 0; i < intersects.length; i++) {
+      // console.log(camera)
+      var intersects = raycaster.intersectObjects(rocketSections.children[j].children);
+      for (var i = 0; i < intersects.length; i++) {
         rayFlag = true
-      // }
+      }
     }
   }
 
@@ -160,7 +178,10 @@ const Navigation = () => {
         <img onClick={() => backClicked()} src={arrow} alt="back"></img>
       </div>
       <div className="arrows">
-        <img onClick={() => moveToRight()} src={arrowLeft} className="previous" alt="arrow-left"></img>
+        <img onClick={() => moveToRight()}
+             src={arrowLeft}
+             className="previous"
+             alt="arrow-left"></img>
         <img onClick={() => moveToLeft()} src={arrowRight} className="next" alt="arrow-right"></img>
       </div>
     </div>

@@ -22,8 +22,8 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
   useEffect(() => {
     if (scene) {
       loadPlaneCenter()
-      createTopPlane(rocket.rocket_id)
-      createBotPlane(rocket.rocket_id)
+      createTopPlane(rocket.rocket_name)
+      createBotPlane(rocket.rocket_name)
     }
   }, [scene])
 
@@ -103,13 +103,6 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     })
   }
 
-  const onBack = () => {}
-  rocketSection.onBack = () => {
-    TweenLite.to(uniforms.current.u_alpha, time / 2, {
-      value: -1.
-    })
-  }
-
   const update = () => {}
   rocketSection.update = () => {
     if (uniforms.current.u_delta) {
@@ -117,7 +110,15 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     }
   }
 
-  const mouseIn = () => {}
+  const onBack = () => {}
+  rocketSection.onBack = () => {
+    TweenLite.to(uniforms.current.u_alpha, time / 2, {
+      value: -1.
+    })
+  }
+
+  const mouseIn = () => {
+  }
   rocketSection.mouseIn = () => {
     TweenLite.to(uniforms.current.u_h, time / 2, {
       value: -4.0
@@ -128,7 +129,8 @@ const RocketBillboard = ({ rocket, rocketSection }) => {
     })
   }
 
-  const mouseOut = () => {}
+  const mouseOut = () => {
+  }
   rocketSection.mouseOut = () => {
     TweenLite.to(uniforms.current.u_h, time / 2, {
       value: -4.0

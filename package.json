@@ -1,5 +1,6 @@
 {
-  "name": "projet-gobelins",
+  "homepage": "https://brieuckyo.github.io/SpaceX",
+  "name": "SpaceX",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
